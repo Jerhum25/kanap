@@ -8,8 +8,6 @@ var urlId = parsedUrl.searchParams.get("id");
 fetch(`http://localhost:3000/api/products/${urlId}`)
     .then(data => data.json())
     .then(product => {
-        // document.querySelector(".item__img")
-        // .innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}"></img>`;
         let img = document.querySelector(".item__img").appendChild(document.createElement("img"));
         img.src = `${product.imageUrl}`
         img.alt = `${product.altTxt}`
@@ -31,14 +29,27 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                 alert("Veuillez choisir une quantité entre 1 et 100 !")
             }
             else {
-                localStorage.setItem("nom", product.name);
-                localStorage.setItem("id", product._id)
-                localStorage.setItem("imageUrl", product.imageUrl)
-                localStorage.setItem("altTxt", product.altTxt)
-                localStorage.setItem("price", product.price)
-                localStorage.setItem("description", product.description)
-                localStorage.setItem("color", colors.value)
-                localStorage.setItem("quantity", quantity.value)
+                let articlesPanier = [];
+                const save = {};
+                save.name = product.name;
+                save.id = product._id;
+                save.imageUrl = product.imageUrl;
+                save.altTxt = product.altTxt;
+                save.price = product.price;
+                save.description = product.description;
+                save.color = colors.value;
+                save.quantity = quantity.value;
+                articlesPanier.push(save);
+
+                localStorage.setItem("panier", JSON.stringify(articlesPanier));
+                // localStorage.setItem("id", product._id)
+                // localStorage.setItem("imageUrl", product.imageUrl)
+                // localStorage.setItem("altTxt", product.altTxt)
+                // localStorage.setItem("price", product.price)
+                // localStorage.setItem("description", product.description)
+                // localStorage.setItem("color", colors.value)
+                // localStorage.setItem("quantity", quantity.value)
+                console.log(JSON.parse(localStorage.panier));
             }
         }
     }
