@@ -112,22 +112,31 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                     articlesPanier.push(save)
                     localStorage.setItem("panier", JSON.stringify(articlesPanier))
                     document.querySelector(".item__content__settings__quantity").appendChild(document.createElement("p")).textContent =
-                        `Vous avez ${numberKanap} ${save.name} ${save.color} dans le pannier`
+                        `Vous avez ${numberKanap} ${save.name} ${save.color} dans le panier`
                 }
+                let pastille = document.querySelector("nav").appendChild(document.createElement("span"));
+                let nav_ = document.getElementsByTagName("nav")[0];
+
+                for (let d = 0; d < nav_.children.length; d++) {
+                    console.log(nav_.children[d]);
+
+                    
+                }
+
+                pastille.textContent = articlesPanier.length;
+                pastille.style.fontSize = "12px"
+                pastille.style.color = "black";
+                pastille.style.border = "1px solid black";
+                pastille.style.borderRadius = "15px";
+                pastille.style.marginLeft = "10px"
+                pastille.style.display = "flex";
+                pastille.style.alignItems = "center";
+                pastille.style.justifyContent = "center";
+                pastille.style.alignSelf = "center"
+                pastille.style.height = "20px";
+                pastille.style.width = "20px";
+
             }
-            let pastille = document.querySelector("nav ul").appendChild(document.createElement("span"));
-            pastille.textContent = "15";
-            pastille.style.fontSize = "12px"
-            pastille.style.color = "black";
-            pastille.style.border = "1px solid black";
-            pastille.style.borderRadius = "15px";
-            pastille.style.marginLeft = "10px"
-            pastille.style.display = "flex";
-            pastille.style.alignItems = "center";
-            pastille.style.justifyContent = "center";
-            pastille.style.alignSelf = "center"
-            pastille.style.height = "20px";
-            pastille.style.width = "20px";
 
             // console.log(JSON.parse(localStorage.panier))
         }
