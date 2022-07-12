@@ -1,5 +1,10 @@
 let panier = JSON.parse(localStorage.getItem("panier"));
-console.log(panier);
+
+// for (k = 0; k < panier.length; k++){
+// console.log(panier[1].quantity);
+
+// }
+
 let cartItems = document.querySelector("#cart__items");
 
 /* ------------- ajout des articles dans le panier-------------- */
@@ -16,10 +21,11 @@ else {
 
   for (article in panier) {
     // if (panier[article].id && panier[article].color) {
+      
     // }
     // else {
-      pan = pan +
-        `<article class="cart__item" data-id="${panier[article].id}" data-color="${panier[article].color}">
+    pan = pan +
+      `<article class="cart__item" data-id="${panier[article].id}" data-color="${panier[article].color}">
     <div class="cart__item__img">
       <img src="${panier[article].imageUrl}" alt="${panier[article].altTxt}">
     </div>
@@ -31,7 +37,7 @@ else {
       </div>
       <div class="cart__item__content__settings">
         <div class="cart__item__content__settings__quantity">
-          <p>Qté : ${panier[article].quantity}</p>
+          <p>Qté : </p>
           <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${panier[article].quantity}">
         </div>
         <div class="cart__item__content__settings__delete">
@@ -41,22 +47,37 @@ else {
     </div>
   </article>`;
 
-      cartItems.innerHTML = pan;
+    cartItems.innerHTML = pan;
+
     // }
   }
 }
 
+
+
 /* ------------- ajouter des articles depuis le panier -------------- */
-for (i =0; i < panier.length; i++) {
-  console.log(panier[i].quantity);
-document.getElementsByClassName("itemQuantity")[i].addEventListener("input", function (e) {
-  document
-    .querySelector(".cart__item__content__settings__quantity p")
-    .innerText = "Qté : " + e.target.value;
-})
+const modifQte = document.querySelectorAll(".itemQuantity");
+for (let i = 0; i < modifQte.length; i++) {
+  modifQte[i].addEventListener("input", function (e) {
+    e.preventDefault();
+    panier[i].quantity = e.target.value;
+    console.log(panier[i].quantity);
+    localStorage.setItem("panier", JSON.stringify(panier));
+    location.reload()
+  })
 }
 
+
+
 /* ------------- supprimer un article depuis le panier -------------- */
+const supprArticle = document.querySelectorAll(".deleteItem");
+for (let j = 0; j < supprArticle.length; j++) {
+  supprArticle[j].addEventListener("click", function () {
+    panier.splice(j, 1);
+    localStorage.setItem("panier", JSON.stringify(panier));
+    location.reload();
+  })
+}
 
 
 
@@ -70,6 +91,8 @@ for (let i = 0; i < quantitePanier.length; i++) {
 let totalArticles = document.getElementById('totalQuantity');
 totalArticles.textContent = quantiteTotale;
 
+
+
 /* ------------- prix total -------------- */
 // let prixPanier = document.getElementsByClassName('itemPrice');
 let prixTotal = 0;
@@ -78,8 +101,6 @@ for (let j = 0; j < quantitePanier.length; j++) {
 }
 let totalPanier = document.getElementById('totalPrice');
 totalPanier.textContent = prixTotal;
-
-
 
 
 
@@ -105,6 +126,7 @@ order.onclick = (e) => {
     firstNameErrorMsg.style.color = "red";
     e.preventDefault();
   } else {
+    e.preventDefault();
     firstNameErrorMsg.innerHTML = "";
   }
 
@@ -118,6 +140,7 @@ order.onclick = (e) => {
     lastNameErrorMsg.style.color = "red";
     e.preventDefault();
   } else {
+    e.preventDefault();
     lastNameErrorMsg.innerHTML = "";
   }
 
@@ -127,6 +150,7 @@ order.onclick = (e) => {
     addressErrorMsg.style.color = "red";
     e.preventDefault();
   } else {
+    e.preventDefault();
     addressErrorMsg.innerHTML = "";
   }
 
@@ -136,19 +160,21 @@ order.onclick = (e) => {
     cityErrorMsg.style.color = "red";
     e.preventDefault();
   } else {
+    e.preventDefault();
     cityErrorMsg.innerHTML = "";
   }
 
   /* ------------- validation de l'email -------------- */
   if (email.value == "") {
+    e.preventDefault();
     emailErrorMsg.innerHTML = "Ce champs est requis.";
     emailErrorMsg.style.color = "red";
-    e.preventDefault();
   } else if (regExEmail.test(email.value) == false) {
+    e.preventDefault();
     emailErrorMsg.innerHTML = "Ceci n'est pas une adresse mail valide.";
     emailErrorMsg.style.color = "red";
-    e.preventDefault();
   } else {
+    e.preventDefault();
     emailErrorMsg.innerHTML = "";
   }
 
