@@ -1,5 +1,6 @@
 var parsedUrl = new URL(window.location.href);
 var urlId = parsedUrl.searchParams.get("id");
+// console.log(urlId)
 
 fetch(`http://localhost:3000/api/products/${urlId}`)
     .then(data => data.json())
@@ -54,8 +55,7 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                     articlesPanier = JSON.parse(localStorage.getItem("panier"));
                     const findProduct = articlesPanier.find((product) =>
                         save.id === product.id && save.color === product.color
-
-                    )
+                        )
                     if (findProduct) {
                         findProduct.quantity = quantity.value;
 

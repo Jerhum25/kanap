@@ -1,9 +1,15 @@
 let panier = JSON.parse(localStorage.getItem("panier"));
 
-// for (k = 0; k < panier.length; k++){
-// console.log(panier[1].quantity);
+for (k = 0; k < panier.length; k++){
+  console.log(panier[k].color);
+  console.log(panier[k].id);
+  if (panier.color) {
+    console.log()
+}
+}
 
-// }
+
+
 
 let cartItems = document.querySelector("#cart__items");
 
@@ -20,10 +26,6 @@ else {
   let pan = [];
 
   for (article in panier) {
-    // if (panier[article].id && panier[article].color) {
-      
-    // }
-    // else {
     pan = pan +
       `<article class="cart__item" data-id="${panier[article].id}" data-color="${panier[article].color}">
     <div class="cart__item__img">
@@ -48,8 +50,6 @@ else {
   </article>`;
 
     cartItems.innerHTML = pan;
-
-    // }
   }
 }
 
