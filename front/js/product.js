@@ -84,41 +84,58 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                         `Vous avez ${numberKanap} ${save.name} ${save.color} dans le panier`
                 }
 
+                pastilleArticles()
+                function pastilleArticles() {
+                    let spanPastille = document.getElementById("spanPastille");
 
-                let spanPastille = document.getElementById("spanPastille");
+                    if (typeof spanPastille != undefined && spanPastille != null) {
+                        console.log("existe")
+                        spanPastille.textContent = articlesPanier.length;
 
-                if (typeof spanPastille != undefined && spanPastille != null) {
-                    console.log("existe")
-                    spanPastille.textContent = articlesPanier.length;
+                    } else {
+                        console.log("n'existe pas")
+                        let pastille = document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
+                        let _spanPastille = document.getElementById("spanPastille");
 
-                } else {
-                    console.log("n'existe pas")
-                    let pastille = document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
-                    let _spanPastille = document.getElementById("spanPastille");
+                        _spanPastille.textContent = articlesPanier.length;
+                        _spanPastille.style.fontSize = "12px";
+                        _spanPastille.style.color = "black";
+                        _spanPastille.style.border = "1px solid black";
+                        _spanPastille.style.borderRadius = "15px";
+                        _spanPastille.style.marginLeft = "10px"
+                        _spanPastille.style.display = "flex";
+                        _spanPastille.style.alignItems = "center";
+                        _spanPastille.style.justifyContent = "center";
+                        _spanPastille.style.alignSelf = "center"
+                        _spanPastille.style.height = "20px";
+                        _spanPastille.style.width = "20px";
 
-                    _spanPastille.textContent = articlesPanier.length;
-                    _spanPastille.style.fontSize = "12px";
-                    _spanPastille.style.color = "black";
-                    _spanPastille.style.border = "1px solid black";
-                    _spanPastille.style.borderRadius = "15px";
-                    _spanPastille.style.marginLeft = "10px"
-                    _spanPastille.style.display = "flex";
-                    _spanPastille.style.alignItems = "center";
-                    _spanPastille.style.justifyContent = "center";
-                    _spanPastille.style.alignSelf = "center"
-                    _spanPastille.style.height = "20px";
-                    _spanPastille.style.width = "20px";
-
+                    }
                 }
-
-                // let nav_ = document.getElementsByTagName("nav")[0];
-                // // for (let d = 0; d < nav_.children.length; d++) {
-                // // console.log(nav_.children[d]);
-                // if (!document.getElementById("spanPastille")) {
-                // } else {
-                // }
             }
         }
+
     }
     );
 
+
+/* ------------- ajout pastille avec nombre d'articles-------------- */
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.length != 0) {
+        document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
+        let _spanPastille = document.getElementById("spanPastille");
+
+        _spanPastille.textContent = JSON.parse(localStorage.getItem("panier")).length;
+        _spanPastille.style.fontSize = "12px";
+        _spanPastille.style.color = "black";
+        _spanPastille.style.border = "1px solid black";
+        _spanPastille.style.borderRadius = "15px";
+        _spanPastille.style.marginLeft = "10px"
+        _spanPastille.style.display = "flex";
+        _spanPastille.style.alignItems = "center";
+        _spanPastille.style.justifyContent = "center";
+        _spanPastille.style.alignSelf = "center"
+        _spanPastille.style.height = "20px";
+        _spanPastille.style.width = "20px";
+    }
+})
