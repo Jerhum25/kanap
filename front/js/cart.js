@@ -155,5 +155,9 @@ order.onclick = (e) => {
   }
 
   /* ------------- ouverture de la page confirmation -------------- */
-  // window.open("confirmation.html");
+  if ( regExName.test(firstName.value) == true && regExName.test(lastName.value) == true && address.value && city.value && regExEmail.test(email.value) == true ) {
+    window.open("confirmation.html");
+  } else {
+
+  }
 }

@@ -55,9 +55,14 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                     articlesPanier = JSON.parse(localStorage.getItem("panier"));
                     const findProduct = articlesPanier.find((product) =>
                         save.id === product.id && save.color === product.color
-                        )
+                    )
                     if (findProduct) {
-                        findProduct.quantity = quantity.value;
+                        let nombre1 = Number(findProduct.quantity)
+                        let nombre2 = Number(parseInt(quantity.value))
+
+                        findProduct.quantity = nombre1 + nombre2;
+
+
 
                         localStorage.setItem("panier", JSON.stringify(articlesPanier))
                         // et j'informe le clients de la quantité de produits dans sont panier
@@ -80,27 +85,38 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                 }
 
 
-                let pastille = document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
-                let spanPastille = document.getElementById("spanPastille")
-                let nav_ = document.getElementsByTagName("nav")[0];
-                // for (let d = 0; d < nav_.children.length; d++) {
-                // console.log(nav_.children[d]);
-                if (!document.getElementById("spanPastille")) {
+                let spanPastille = document.getElementById("spanPastille");
+
+                if (typeof spanPastille != undefined && spanPastille != null) {
+                    console.log("existe")
                     spanPastille.textContent = articlesPanier.length;
+
                 } else {
-                    spanPastille.textContent = articlesPanier.length;
-                    spanPastille.style.fontSize = "12px";
-                    spanPastille.style.color = "black";
-                    spanPastille.style.border = "1px solid black";
-                    spanPastille.style.borderRadius = "15px";
-                    spanPastille.style.marginLeft = "10px"
-                    spanPastille.style.display = "flex";
-                    spanPastille.style.alignItems = "center";
-                    spanPastille.style.justifyContent = "center";
-                    spanPastille.style.alignSelf = "center"
-                    spanPastille.style.height = "20px";
-                    spanPastille.style.width = "20px";
+                    console.log("n'existe pas")
+                    let pastille = document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
+                    let _spanPastille = document.getElementById("spanPastille");
+
+                    _spanPastille.textContent = articlesPanier.length;
+                    _spanPastille.style.fontSize = "12px";
+                    _spanPastille.style.color = "black";
+                    _spanPastille.style.border = "1px solid black";
+                    _spanPastille.style.borderRadius = "15px";
+                    _spanPastille.style.marginLeft = "10px"
+                    _spanPastille.style.display = "flex";
+                    _spanPastille.style.alignItems = "center";
+                    _spanPastille.style.justifyContent = "center";
+                    _spanPastille.style.alignSelf = "center"
+                    _spanPastille.style.height = "20px";
+                    _spanPastille.style.width = "20px";
+
                 }
+
+                // let nav_ = document.getElementsByTagName("nav")[0];
+                // // for (let d = 0; d < nav_.children.length; d++) {
+                // // console.log(nav_.children[d]);
+                // if (!document.getElementById("spanPastille")) {
+                // } else {
+                // }
             }
         }
     }
