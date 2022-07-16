@@ -1,16 +1,5 @@
 let panier = JSON.parse(localStorage.getItem("panier"));
 
-for (k = 0; k < panier.length; k++){
-  console.log(panier[k].color);
-  console.log(panier[k].id);
-  if (panier.color) {
-    console.log()
-}
-}
-
-
-
-
 let cartItems = document.querySelector("#cart__items");
 
 /* ------------- ajout des articles dans le panier-------------- */
@@ -120,13 +109,10 @@ order.onclick = (e) => {
   if (firstName.value == "") {
     firstNameErrorMsg.innerHTML = "Ce champs est requis.";
     firstNameErrorMsg.style.color = "red";
-    e.preventDefault();
   } else if (regExName.test(firstName.value) == false) {
     firstNameErrorMsg.innerHTML = "Les caractères saisis ne sont pas valides.";
     firstNameErrorMsg.style.color = "red";
-    e.preventDefault();
   } else {
-    e.preventDefault();
     firstNameErrorMsg.innerHTML = "";
   }
 
@@ -134,13 +120,10 @@ order.onclick = (e) => {
   if (lastName.value == "") {
     lastNameErrorMsg.innerHTML = "Ce champs est requis.";
     lastNameErrorMsg.style.color = "red";
-    e.preventDefault();
   } else if (regExName.test(lastName.value) == false) {
     lastNameErrorMsg.innerHTML = "Les caractères saisis ne sont pas valides.";
     lastNameErrorMsg.style.color = "red";
-    e.preventDefault();
   } else {
-    e.preventDefault();
     lastNameErrorMsg.innerHTML = "";
   }
 
@@ -148,9 +131,7 @@ order.onclick = (e) => {
   if (address.value == "") {
     addressErrorMsg.innerHTML = "Ce champs est requis.";
     addressErrorMsg.style.color = "red";
-    e.preventDefault();
   } else {
-    e.preventDefault();
     addressErrorMsg.innerHTML = "";
   }
 
@@ -158,23 +139,18 @@ order.onclick = (e) => {
   if (city.value == "") {
     cityErrorMsg.innerHTML = "Ce champs est requis.";
     cityErrorMsg.style.color = "red";
-    e.preventDefault();
   } else {
-    e.preventDefault();
     cityErrorMsg.innerHTML = "";
   }
 
   /* ------------- validation de l'email -------------- */
   if (email.value == "") {
-    e.preventDefault();
     emailErrorMsg.innerHTML = "Ce champs est requis.";
     emailErrorMsg.style.color = "red";
   } else if (regExEmail.test(email.value) == false) {
-    e.preventDefault();
     emailErrorMsg.innerHTML = "Ceci n'est pas une adresse mail valide.";
     emailErrorMsg.style.color = "red";
   } else {
-    e.preventDefault();
     emailErrorMsg.innerHTML = "";
   }
 
