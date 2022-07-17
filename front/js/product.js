@@ -57,12 +57,12 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                         save.id === product.id && save.color === product.color
                     )
                     if (findProduct) {
-                        let nombre1 = Number(findProduct.quantity)
-                        let nombre2 = Number(parseInt(quantity.value))
+                        // let nombre1 = Number(findProduct.quantity)
+                        // let nombre2 = Number(parseInt(quantity.value))
 
-                        findProduct.quantity = nombre1 + nombre2;
+                        // findProduct.quantity = nombre1 + nombre2;
 
-
+                        findProduct.quantity = findProduct.quantity + quantity.value;
 
                         localStorage.setItem("panier", JSON.stringify(articlesPanier))
                         // et j'informe le clients de la quantité de produits dans sont panier

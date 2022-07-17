@@ -1,13 +1,14 @@
-class Product{
-    constructor(jsonProduct){
+class Product {
+    constructor(jsonProduct) {
         jsonProduct && Object.assign(this, jsonProduct);
-    }}
+    }
+}
 
 /* ------------- récupération des articles dans l'API-------------- */
 fetch("http://localhost:3000/api/products")
     .then(data => data.json())
     .then(jsonListProducts => {
-        for (let jsonProduct of jsonListProducts){
+        for (let jsonProduct of jsonListProducts) {
             let product = new Product(jsonProduct);
 
             let lien = document.querySelector("#items").appendChild(document.createElement("a"));
@@ -26,7 +27,6 @@ fetch("http://localhost:3000/api/products")
             let desc = article.appendChild(document.createElement("p"));
             desc.className = "productDescription";
             desc.innerHTML = `${product.description}`;
-
         }
     });
 

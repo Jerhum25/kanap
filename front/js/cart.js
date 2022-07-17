@@ -25,14 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* ------------- ajout des articles dans le panier-------------- */
-/* ------------- si le panier est vide-------------- */
+/* ------------- si le panier est vide, on affiche une message "panier vide" -------------- */
 if (panier === null || panier.length === 0) {
   let panierVide = document.createElement('p');
   document.querySelector('#cart__items').appendChild(panierVide);
   panierVide.textContent = 'Votre panier est vide !';
 }
 
-/* ------------- si le panier n'est pas vide-------------- */
+/* ------------- si le panier n'est pas vide, on crée l'article -------------- */
 else {
   let pan = [];
 
@@ -127,6 +127,14 @@ order.onclick = (e) => {
   let regExName = /^[a-zA-Z-\s]+$/;
   let regExEmail = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 
+  let contact = {
+    firstName : firstName.value,
+    lastName : lastName.value,
+    address : address.value,
+    city : city.value,
+    email : email.value
+  }
+
   /* ------------- validation du prénom -------------- */
   if (firstName.value == "") {
     firstNameErrorMsg.innerHTML = "Ce champs est requis.";
@@ -176,14 +184,13 @@ order.onclick = (e) => {
     emailErrorMsg.innerHTML = "";
   }
 
-  /* ------------- ouverture de la page confirmation -------------- */
+  localStorage.setItem("contact", JSON.stringify(contact));
+
+
+  /* ------------- ouverture de la page confirmation si le formulaire est valide -------------- */
   if (regExName.test(firstName.value) == true && regExName.test(lastName.value) == true && address.value && city.value && regExEmail.test(email.value) == true) {
     window.open("confirmation.html");
   } else {
-
+    
   }
 }
-
-
-
-
