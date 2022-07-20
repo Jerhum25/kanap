@@ -49,4 +49,4 @@ document.addEventListener("DOMContentLoaded", () => {
         _spanPastille.style.height = "20px";
         _spanPastille.style.width = "20px";
     }
-})
+});

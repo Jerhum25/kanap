@@ -93,7 +93,6 @@ for (let j = 0; j < supprArticle.length; j++) {
 
 
 /* ------------- quantité totale -------------- */
-
 let quantitePanier = document.getElementsByClassName('itemQuantity');
 let quantiteTotale = 0;
 for (let i = 0; i < quantitePanier.length; i++) {
@@ -105,7 +104,6 @@ totalArticles.textContent = quantiteTotale;
 
 
 /* ------------- prix total -------------- */
-// let prixPanier = document.getElementsByClassName('itemPrice');
 let prixTotal = 0;
 for (let j = 0; j < quantitePanier.length; j++) {
   prixTotal += quantitePanier[j].valueAsNumber * panier[j].price;
@@ -124,15 +122,17 @@ order.onclick = (e) => {
   let city = document.getElementById("city");
   let email = document.getElementById("email");
 
+  /* ------------- déclaration des regEx pour validation du formulaire -------------- */
   let regExName = /^[a-zA-Z-\s]+$/;
   let regExEmail = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 
+  /* ------------- déclaration de l'objet contact-------------- */
   let contact = {
-    firstName : firstName.value,
-    lastName : lastName.value,
-    address : address.value,
-    city : city.value,
-    email : email.value
+    firstName: firstName.value,
+    lastName: lastName.value,
+    address: address.value,
+    city: city.value,
+    email: email.value
   }
 
   /* ------------- validation du prénom -------------- */
@@ -184,13 +184,14 @@ order.onclick = (e) => {
     emailErrorMsg.innerHTML = "";
   }
 
+  /* ------------- ajout de l'objet contact au localStorage -------------- */
   localStorage.setItem("contact", JSON.stringify(contact));
 
 
   /* ------------- ouverture de la page confirmation si le formulaire est valide -------------- */
   if (regExName.test(firstName.value) == true && regExName.test(lastName.value) == true && address.value && city.value && regExEmail.test(email.value) == true) {
-    window.open("confirmation.html");
+    window.open("confirmation.html_self");
   } else {
-    
+
   }
 }

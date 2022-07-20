@@ -2,6 +2,8 @@ var parsedUrl = new URL(window.location.href);
 var urlId = parsedUrl.searchParams.get("id");
 // console.log(urlId)
 
+
+/* ------------- récupération d'un produit en fonction de son ID -------------- */
 fetch(`http://localhost:3000/api/products/${urlId}`)
     .then(data => data.json())
     .then(product => {
@@ -19,21 +21,24 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
         }
 
 
-        //Quantité du produit
+        /* ------------- écoute sur le changement de quantité -------------- */
         const quantityProduct = document.querySelector("#quantity");
         let numberKanap;
         quantityProduct.addEventListener('change', (e) => {
             numberKanap = parseInt(e.target.value);
         })
 
-
+        /* ------------- au clic on ajoute l'article au panier -------------- */
         addToCart.onclick = (e) => {
+            /* ------------- si aucune couleur choisie Alerte -------------- */
             if (colors.value === "null" || colors.value === "") {
                 alert("Veuillez choisir une couleur !")
             }
+            /* ------------- si quantité no valide Alerte -------------- */
             else if (quantity.value < 1 || quantity.value > 100) {
                 alert("Veuillez choisir une quantité entre 1 et 100 !")
             }
+            /* ------------- création de la fiche produit -------------- */
             else {
                 let articlesPanier = [];
                 const save = {
@@ -46,54 +51,51 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                     color: colors.value,
                     quantity: quantity.value
                 };
-                // console.log(articlesPanier);
-                // console.log(save.id)
 
 
-                //Envoie les données dans le local storage + change les quantité si la couleur et l'id est la même
+                /* ------------- Envoie les données dans le local storage + change les quantités si la couleur et l'id est la même -------------- */
                 if (typeof localStorage != 'undefined' && localStorage.getItem("panier") != null) {
                     articlesPanier = JSON.parse(localStorage.getItem("panier"));
                     const findProduct = articlesPanier.find((product) =>
                         save.id === product.id && save.color === product.color
                     )
                     if (findProduct) {
-                        // let nombre1 = Number(findProduct.quantity)
-                        // let nombre2 = Number(parseInt(quantity.value))
+                        let nombre1 = Number(findProduct.quantity)
+                        let nombre2 = Number(parseInt(quantity.value))
 
-                        // findProduct.quantity = nombre1 + nombre2;
-
-                        findProduct.quantity = findProduct.quantity + quantity.value;
+                        findProduct.quantity = nombre1 + nombre2;
 
                         localStorage.setItem("panier", JSON.stringify(articlesPanier))
-                        // et j'informe le clients de la quantité de produits dans sont panier
+                        /* ------------- et j'informe le clients de la quantité de produits dans sont panier -------------- */
                         document.querySelector(".item__content__settings__quantity").appendChild(document.createElement("p")).textContent =
                             `Vous avez ${numberKanap} ${save.name} ${save.color} dans le panier`
 
                     } else {
-                        //Et si le produit existe pas je le push dans le tableau
+                        /* ------------- Et si le produit existe pas je le push dans le tableau -------------- */
                         articlesPanier.push(save)
                         localStorage.setItem("panier", JSON.stringify(articlesPanier))
                         document.querySelector(".item__content__settings__quantity").appendChild(document.createElement("p")).textContent =
                             `Vous avez ${numberKanap} ${save.name} ${save.color} dans le panier`
                     }
                 } else {
-                    // Permet de crée le premier produit
+                    /* ------------- Permet de crée le premier produit -------------- */
                     articlesPanier.push(save)
                     localStorage.setItem("panier", JSON.stringify(articlesPanier))
                     document.querySelector(".item__content__settings__quantity").appendChild(document.createElement("p")).textContent =
                         `Vous avez ${numberKanap} ${save.name} ${save.color} dans le panier`
                 }
 
+
+
+                /* ------------- mise en place d'une pastille dans le nav pour informer le client du nombre d'atricles dans le panier -------------- */
                 pastilleArticles()
                 function pastilleArticles() {
                     let spanPastille = document.getElementById("spanPastille");
 
                     if (typeof spanPastille != undefined && spanPastille != null) {
-                        console.log("existe")
                         spanPastille.textContent = articlesPanier.length;
 
                     } else {
-                        console.log("n'existe pas")
                         let pastille = document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
                         let _spanPastille = document.getElementById("spanPastille");
 
