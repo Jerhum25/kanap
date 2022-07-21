@@ -1,7 +1,11 @@
+const helper = new Helper();
+const articlesPanier = JSON.parse(localStorage.getItem("panier"));
+helper.pastilleArticles(articlesPanier);
+
+/* ------------- déclaration de variables pour récupérer l'ID dans l'URL -------------- */
 var parsedUrl = new URL(window.location.href);
 var urlId = parsedUrl.searchParams.get("id");
 // console.log(urlId)
-
 
 /* ------------- récupération d'un produit en fonction de son ID -------------- */
 fetch(`http://localhost:3000/api/products/${urlId}`)
@@ -88,56 +92,7 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
 
 
                 /* ------------- mise en place d'une pastille dans le nav pour informer le client du nombre d'atricles dans le panier -------------- */
-                pastilleArticles()
-                function pastilleArticles() {
-                    let spanPastille = document.getElementById("spanPastille");
-
-                    if (typeof spanPastille != undefined && spanPastille != null) {
-                        spanPastille.textContent = articlesPanier.length;
-
-                    } else {
-                        let pastille = document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
-                        let _spanPastille = document.getElementById("spanPastille");
-
-                        _spanPastille.textContent = articlesPanier.length;
-                        _spanPastille.style.fontSize = "12px";
-                        _spanPastille.style.color = "black";
-                        _spanPastille.style.border = "1px solid black";
-                        _spanPastille.style.borderRadius = "15px";
-                        _spanPastille.style.marginLeft = "10px"
-                        _spanPastille.style.display = "flex";
-                        _spanPastille.style.alignItems = "center";
-                        _spanPastille.style.justifyContent = "center";
-                        _spanPastille.style.alignSelf = "center"
-                        _spanPastille.style.height = "20px";
-                        _spanPastille.style.width = "20px";
-
-                    }
-                }
+                helper.pastilleArticles(articlesPanier);
             }
         }
-
-    }
-    );
-
-
-/* ------------- ajout pastille avec nombre d'articles-------------- */
-document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.length != 0) {
-        document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
-        let _spanPastille = document.getElementById("spanPastille");
-
-        _spanPastille.textContent = JSON.parse(localStorage.getItem("panier")).length;
-        _spanPastille.style.fontSize = "12px";
-        _spanPastille.style.color = "black";
-        _spanPastille.style.border = "1px solid black";
-        _spanPastille.style.borderRadius = "15px";
-        _spanPastille.style.marginLeft = "10px"
-        _spanPastille.style.display = "flex";
-        _spanPastille.style.alignItems = "center";
-        _spanPastille.style.justifyContent = "center";
-        _spanPastille.style.alignSelf = "center"
-        _spanPastille.style.height = "20px";
-        _spanPastille.style.width = "20px";
-    }
-})
+    });

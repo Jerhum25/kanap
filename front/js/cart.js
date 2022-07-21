@@ -1,27 +1,31 @@
+const helper = new Helper();
+
 let panier = JSON.parse(localStorage.getItem("panier"));
 
 let cartItems = document.querySelector("#cart__items");
 
 /* ------------- ajout pastille avec nombre d'articles-------------- */
-document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.length != 0) {
-    document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
-    let _spanPastille = document.getElementById("spanPastille");
+helper.pastilleArticles(panier);
 
-    _spanPastille.textContent = JSON.parse(localStorage.getItem("panier")).length;
-    _spanPastille.style.fontSize = "12px";
-    _spanPastille.style.color = "black";
-    _spanPastille.style.border = "1px solid black";
-    _spanPastille.style.borderRadius = "15px";
-    _spanPastille.style.marginLeft = "10px"
-    _spanPastille.style.display = "flex";
-    _spanPastille.style.alignItems = "center";
-    _spanPastille.style.justifyContent = "center";
-    _spanPastille.style.alignSelf = "center"
-    _spanPastille.style.height = "20px";
-    _spanPastille.style.width = "20px";
-  }
-})
+// document.addEventListener("DOMContentLoaded", () => {
+//   if (localStorage.length != 0) {
+//     document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
+//     let _spanPastille = document.getElementById("spanPastille");
+
+//     _spanPastille.textContent = JSON.parse(localStorage.getItem("panier")).length;
+//     _spanPastille.style.fontSize = "12px";
+//     _spanPastille.style.color = "black";
+//     _spanPastille.style.border = "1px solid black";
+//     _spanPastille.style.borderRadius = "15px";
+//     _spanPastille.style.marginLeft = "10px"
+//     _spanPastille.style.display = "flex";
+//     _spanPastille.style.alignItems = "center";
+//     _spanPastille.style.justifyContent = "center";
+//     _spanPastille.style.alignSelf = "center"
+//     _spanPastille.style.height = "20px";
+//     _spanPastille.style.width = "20px";
+//   }
+// })
 
 
 /* ------------- ajout des articles dans le panier-------------- */
@@ -190,7 +194,7 @@ order.onclick = (e) => {
 
   /* ------------- ouverture de la page confirmation si le formulaire est valide -------------- */
   if (regExName.test(firstName.value) == true && regExName.test(lastName.value) == true && address.value && city.value && regExEmail.test(email.value) == true) {
-    window.open("confirmation.html_self");
+    window.open("confirmation.html");
   } else {
 
   }
