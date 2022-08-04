@@ -7,27 +7,6 @@ let cartItems = document.querySelector("#cart__items");
 /* ------------- ajout pastille avec nombre d'articles-------------- */
 helper.pastilleArticles(panier);
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   if (localStorage.length != 0) {
-//     document.querySelector("nav").appendChild(document.createElement("span")).setAttribute("id", "spanPastille");
-//     let _spanPastille = document.getElementById("spanPastille");
-
-//     _spanPastille.textContent = JSON.parse(localStorage.getItem("panier")).length;
-//     _spanPastille.style.fontSize = "12px";
-//     _spanPastille.style.color = "black";
-//     _spanPastille.style.border = "1px solid black";
-//     _spanPastille.style.borderRadius = "15px";
-//     _spanPastille.style.marginLeft = "10px"
-//     _spanPastille.style.display = "flex";
-//     _spanPastille.style.alignItems = "center";
-//     _spanPastille.style.justifyContent = "center";
-//     _spanPastille.style.alignSelf = "center"
-//     _spanPastille.style.height = "20px";
-//     _spanPastille.style.width = "20px";
-//   }
-// })
-
-
 /* ------------- ajout des articles dans le panier-------------- */
 /* ------------- si le panier est vide, on affiche une message "panier vide" -------------- */
 if (panier === null || panier.length === 0) {
@@ -69,31 +48,36 @@ else {
 }
 
 
-
-/* ------------- ajouter des articles depuis le panier -------------- */
-const modifQte = document.querySelectorAll(".itemQuantity");
-for (let i = 0; i < modifQte.length; i++) {
-  modifQte[i].addEventListener("input", function (e) {
-    e.preventDefault();
-    panier[i].quantity = e.target.value;
-    console.log(panier[i].quantity);
-    localStorage.setItem("panier", JSON.stringify(panier));
-    location.reload()
-  })
+function ajoutArticles() {
+  /* ------------- ajouter des articles depuis le panier -------------- */
+  const modifQte = document.querySelectorAll(".itemQuantity");
+  for (let i = 0; i < modifQte.length; i++) {
+    modifQte[i].addEventListener("input", function (e) {
+      e.preventDefault();
+      panier[i].quantity = e.target.value;
+      console.log(panier[i].quantity);
+      localStorage.setItem("panier", JSON.stringify(panier));
+      location.reload()
+    })
+  }
 }
 
+ajoutArticles();
 
 
-/* ------------- supprimer un article depuis le panier -------------- */
-const supprArticle = document.querySelectorAll(".deleteItem");
-for (let j = 0; j < supprArticle.length; j++) {
-  supprArticle[j].addEventListener("click", function () {
-    panier.splice(j, 1);
-    localStorage.setItem("panier", JSON.stringify(panier));
-    location.reload();
-  })
+function supprimeArticle() {
+  /* ------------- supprimer un article depuis le panier -------------- */
+  const supprArticle = document.querySelectorAll(".deleteItem");
+  for (let j = 0; j < supprArticle.length; j++) {
+    supprArticle[j].addEventListener("click", function () {
+      panier.splice(j, 1);
+      localStorage.setItem("panier", JSON.stringify(panier));
+      location.reload();
+    })
+  }
 }
 
+supprimeArticle();
 
 
 /* ------------- quantité totale -------------- */
@@ -137,55 +121,59 @@ order.onclick = (e) => {
     address: address.value,
     city: city.value,
     email: email.value
-  }
+  };
 
-  /* ------------- validation du prénom -------------- */
-  if (firstName.value == "") {
-    firstNameErrorMsg.innerHTML = "Ce champs est requis.";
-    firstNameErrorMsg.style.color = "red";
-  } else if (regExName.test(firstName.value) == false) {
-    firstNameErrorMsg.innerHTML = "Les caractères saisis ne sont pas valides.";
-    firstNameErrorMsg.style.color = "red";
-  } else {
-    firstNameErrorMsg.innerHTML = "";
-  }
+  validationFormulaire();
 
-  /* ------------- validation du nom -------------- */
-  if (lastName.value == "") {
-    lastNameErrorMsg.innerHTML = "Ce champs est requis.";
-    lastNameErrorMsg.style.color = "red";
-  } else if (regExName.test(lastName.value) == false) {
-    lastNameErrorMsg.innerHTML = "Les caractères saisis ne sont pas valides.";
-    lastNameErrorMsg.style.color = "red";
-  } else {
-    lastNameErrorMsg.innerHTML = "";
-  }
-
-  /* ------------- validation de l'adresse -------------- */
-  if (address.value == "") {
-    addressErrorMsg.innerHTML = "Ce champs est requis.";
-    addressErrorMsg.style.color = "red";
-  } else {
-    addressErrorMsg.innerHTML = "";
-  }
-
-  /* ------------- validation de la ville -------------- */
-  if (city.value == "") {
-    cityErrorMsg.innerHTML = "Ce champs est requis.";
-    cityErrorMsg.style.color = "red";
-  } else {
-    cityErrorMsg.innerHTML = "";
-  }
-
-  /* ------------- validation de l'email -------------- */
-  if (email.value == "") {
-    emailErrorMsg.innerHTML = "Ce champs est requis.";
-    emailErrorMsg.style.color = "red";
-  } else if (regExEmail.test(email.value) == false) {
-    emailErrorMsg.innerHTML = "Ceci n'est pas une adresse mail valide.";
-    emailErrorMsg.style.color = "red";
-  } else {
-    emailErrorMsg.innerHTML = "";
+  function validationFormulaire() {
+    /* ------------- validation du prénom -------------- */
+    if (firstName.value == "") {
+      firstNameErrorMsg.innerHTML = "Ce champs est requis.";
+      firstNameErrorMsg.style.color = "red";
+    } else if (regExName.test(firstName.value) == false) {
+      firstNameErrorMsg.innerHTML = "Les caractères saisis ne sont pas valides.";
+      firstNameErrorMsg.style.color = "red";
+    } else {
+      firstNameErrorMsg.innerHTML = "";
+    }
+  
+    /* ------------- validation du nom -------------- */
+    if (lastName.value == "") {
+      lastNameErrorMsg.innerHTML = "Ce champs est requis.";
+      lastNameErrorMsg.style.color = "red";
+    } else if (regExName.test(lastName.value) == false) {
+      lastNameErrorMsg.innerHTML = "Les caractères saisis ne sont pas valides.";
+      lastNameErrorMsg.style.color = "red";
+    } else {
+      lastNameErrorMsg.innerHTML = "";
+    }
+  
+    /* ------------- validation de l'adresse -------------- */
+    if (address.value == "") {
+      addressErrorMsg.innerHTML = "Ce champs est requis.";
+      addressErrorMsg.style.color = "red";
+    } else {
+      addressErrorMsg.innerHTML = "";
+    }
+  
+    /* ------------- validation de la ville -------------- */
+    if (city.value == "") {
+      cityErrorMsg.innerHTML = "Ce champs est requis.";
+      cityErrorMsg.style.color = "red";
+    } else {
+      cityErrorMsg.innerHTML = "";
+    }
+  
+    /* ------------- validation de l'email -------------- */
+    if (email.value == "") {
+      emailErrorMsg.innerHTML = "Ce champs est requis.";
+      emailErrorMsg.style.color = "red";
+    } else if (regExEmail.test(email.value) == false) {
+      emailErrorMsg.innerHTML = "Ceci n'est pas une adresse mail valide.";
+      emailErrorMsg.style.color = "red";
+    } else {
+      emailErrorMsg.innerHTML = "";
+    }
   }
 
   /* ------------- ajout de l'objet contact au localStorage -------------- */
