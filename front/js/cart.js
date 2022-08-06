@@ -48,56 +48,13 @@ else {
 }
 
 
-function ajoutArticles() {
-  /* ------------- ajouter des articles depuis le panier -------------- */
-  const modifQte = document.querySelectorAll(".itemQuantity");
-  for (let i = 0; i < modifQte.length; i++) {
-    modifQte[i].addEventListener("input", function (e) {
-      e.preventDefault();
-      panier[i].quantity = e.target.value;
-      console.log(panier[i].quantity);
-      localStorage.setItem("panier", JSON.stringify(panier));
-      location.reload()
-    })
-  }
-}
+helper.ajoutArticles();
 
-ajoutArticles();
+helper.supprimeArticle();
 
+helper.quantiteTotalePanier();
 
-function supprimeArticle() {
-  /* ------------- supprimer un article depuis le panier -------------- */
-  const supprArticle = document.querySelectorAll(".deleteItem");
-  for (let j = 0; j < supprArticle.length; j++) {
-    supprArticle[j].addEventListener("click", function () {
-      panier.splice(j, 1);
-      localStorage.setItem("panier", JSON.stringify(panier));
-      location.reload();
-    })
-  }
-}
-
-supprimeArticle();
-
-
-/* ------------- quantité totale -------------- */
-let quantitePanier = document.getElementsByClassName('itemQuantity');
-let quantiteTotale = 0;
-for (let i = 0; i < quantitePanier.length; i++) {
-  quantiteTotale += quantitePanier[i].valueAsNumber;
-}
-let totalArticles = document.getElementById('totalQuantity');
-totalArticles.textContent = quantiteTotale;
-
-
-
-/* ------------- prix total -------------- */
-let prixTotal = 0;
-for (let j = 0; j < quantitePanier.length; j++) {
-  prixTotal += quantitePanier[j].valueAsNumber * panier[j].price;
-}
-let totalPanier = document.getElementById('totalPrice');
-totalPanier.textContent = prixTotal;
+helper.prixTotalPanier();
 
 
 
@@ -136,7 +93,7 @@ order.onclick = (e) => {
     } else {
       firstNameErrorMsg.innerHTML = "";
     }
-  
+
     /* ------------- validation du nom -------------- */
     if (lastName.value == "") {
       lastNameErrorMsg.innerHTML = "Ce champs est requis.";
@@ -147,7 +104,7 @@ order.onclick = (e) => {
     } else {
       lastNameErrorMsg.innerHTML = "";
     }
-  
+
     /* ------------- validation de l'adresse -------------- */
     if (address.value == "") {
       addressErrorMsg.innerHTML = "Ce champs est requis.";
@@ -155,7 +112,7 @@ order.onclick = (e) => {
     } else {
       addressErrorMsg.innerHTML = "";
     }
-  
+
     /* ------------- validation de la ville -------------- */
     if (city.value == "") {
       cityErrorMsg.innerHTML = "Ce champs est requis.";
@@ -163,7 +120,7 @@ order.onclick = (e) => {
     } else {
       cityErrorMsg.innerHTML = "";
     }
-  
+
     /* ------------- validation de l'email -------------- */
     if (email.value == "") {
       emailErrorMsg.innerHTML = "Ce champs est requis.";
@@ -182,7 +139,7 @@ order.onclick = (e) => {
 
   /* ------------- ouverture de la page confirmation si le formulaire est valide -------------- */
   if (regExName.test(firstName.value) == true && regExName.test(lastName.value) == true && address.value && city.value && regExEmail.test(email.value) == true) {
-    window.open("confirmation.html");
+    window.open('confirmation.html');
   } else {
 
   }
