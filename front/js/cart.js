@@ -136,10 +136,11 @@ order.onclick = (e) => {
   /* ------------- ajout de l'objet contact au localStorage -------------- */
   localStorage.setItem("contact", JSON.stringify(contact));
 
+  // window.location.href = 'confirmation.html';
 
   /* ------------- ouverture de la page confirmation si le formulaire est valide -------------- */
   if (regExName.test(firstName.value) == true && regExName.test(lastName.value) == true && address.value && city.value && regExEmail.test(email.value) == true) {
-    window.open('confirmation.html');
+    window.location.href = 'confirmation.html';
   } else {
 
   }

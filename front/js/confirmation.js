@@ -13,16 +13,10 @@ function commandeId(min, max) {
 };
 
 
-// const paragraphe = document.querySelector('.confirmation p');
-// console.log(paragraphe);
-
+/* ------------- Confirmation de l'adresse de livraison -------------- */
 document.querySelector('.confirmation').style.flexDirection = "column";
 
-// const newelem = document.createElement('h2').innerHTML = "Récapitulatif de commande"
-// document.querySelector('.confirmation').insertBefore(newelem, paragraphe);
-
 const contact = JSON.parse(localStorage.getItem("contact"));
-console.log(contact.email);
 
 document.querySelector('.confirmation p')
   .appendChild(document.createElement('p'))
