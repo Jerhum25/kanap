@@ -38,7 +38,7 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
             if (colors.value === "null" || colors.value === "") {
                 alert("Veuillez choisir une couleur !")
             }
-            /* ------------- si quantité no valide Alerte -------------- */
+            /* ------------- si quantité non valide Alerte -------------- */
             else if (quantity.value < 1 || quantity.value > 100) {
                 alert("Veuillez choisir une quantité entre 1 et 100 !")
             }

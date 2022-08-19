@@ -15,7 +15,7 @@ if (panier === null || panier.length === 0) {
   panierVide.textContent = 'Votre panier est vide !';
 }
 
-/* ------------- si le panier n'est pas vide, on crée l'article -------------- */
+/* ------------- si il y a des produits dans le local storage, on crée les articles -------------- */
 else {
   let pan = [];
 
@@ -57,9 +57,9 @@ helper.quantiteTotalePanier();
 helper.prixTotalPanier();
 
 
-
 /* ------------- validation du formulaire -------------- */
 order.onclick = (e) => {
+  e.preventDefault();
   /* ------------- déclaration des variables -------------- */
   let firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
   let lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
@@ -136,11 +136,10 @@ order.onclick = (e) => {
   /* ------------- ajout de l'objet contact au localStorage -------------- */
   localStorage.setItem("contact", JSON.stringify(contact));
 
-  // window.location.href = 'confirmation.html';
-
   /* ------------- ouverture de la page confirmation si le formulaire est valide -------------- */
   if (regExName.test(firstName.value) == true && regExName.test(lastName.value) == true && address.value && city.value && regExEmail.test(email.value) == true) {
-    window.location.href = 'confirmation.html';
+    console.log("formualire ok")
+    window.open("./confirmation.html", "_self");
   } else {
 
   }
