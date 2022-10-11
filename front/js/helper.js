@@ -67,13 +67,17 @@ class Helper {
 
     prixTotalPanier() {
         /* ------------- prix total -------------- */
-        let quantitePanier = document.getElementsByClassName('itemQuantity');
-        let prixTotal = 0;
-        for (let j = 0; j < quantitePanier.length; j++) {
-            prixTotal += quantitePanier[j].valueAsNumber * panier[j].price;
-        }
-        let totalPanier = document.getElementById('totalPrice');
-        totalPanier.textContent = prixTotal;
+        fetch('http://localhost:3000/api/products')
+            .then(reponse => reponse.json())
+            .then(data => {
+                let quantitePanier = document.getElementsByClassName('itemQuantity');
+                let prixTotal = 0;
+                for (let j = 0; j < quantitePanier.length; j++) {
+                    prixTotal += quantitePanier[j].valueAsNumber * data[j].price;
+                }
+                let totalPanier = document.getElementById('totalPrice');
+                totalPanier.textContent = prixTotal;
+            })
     }
 
 }

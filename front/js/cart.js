@@ -19,42 +19,50 @@ if (panier === null || panier.length === 0) {
 else {
   let pan = [];
 
-  for (article in panier) {
-    pan = pan +
-      `<article class="cart__item" data-id="${panier[article].id}" data-color="${panier[article].color}">
-    <div class="cart__item__img">
-      <img src="${panier[article].imageUrl}" alt="${panier[article].altTxt}">
-    </div>
-    <div class="cart__item__content">
-      <div class="cart__item__content__description">
-        <h2>${panier[article].name}</h2>
-        <p>${panier[article].color}</p>
-        <p>${panier[article].price} €</p>
-      </div>
-      <div class="cart__item__content__settings">
-        <div class="cart__item__content__settings__quantity">
-          <p>Qté : </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${panier[article].quantity}">
+  fetch('http://localhost:3000/api/products')
+    .then(reponse => reponse.json())
+    .then(data => {
+      for (article in panier) {
+        pan = pan +
+          `<article class="cart__item" data-id="${panier[article].id}" data-color="${panier[article].color}">
+        <div class="cart__item__img">
+          <img src="${panier[article].imageUrl}" alt="${panier[article].altTxt}">
         </div>
-        <div class="cart__item__content__settings__delete">
-          <p class="deleteItem">Supprimer</p>
+        <div class="cart__item__content">
+          <div class="cart__item__content__description">
+            <h2>${panier[article].name}</h2>
+            <p>${panier[article].color}</p>
+            <p>${data[article].price} €</p>
+          </div>
+          <div class="cart__item__content__settings">
+            <div class="cart__item__content__settings__quantity">
+              <p>Qté : </p>
+              <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${panier[article].quantity}">
+            </div>
+            <div class="cart__item__content__settings__delete">
+              <p class="deleteItem">Supprimer</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </article>`;
+      </article>`;
+        cartItems.innerHTML = pan;
+      }
+      helper.ajoutArticles();
 
-    cartItems.innerHTML = pan;
-  }
+      helper.supprimeArticle();
+
+      helper.quantiteTotalePanier();
+
+      helper.prixTotalPanier();
+    })
 }
 
 
-helper.ajoutArticles();
 
-helper.supprimeArticle();
 
-helper.quantiteTotalePanier();
 
-helper.prixTotalPanier();
+
+
 
 
 /* ------------- validation du formulaire -------------- */
@@ -69,7 +77,7 @@ order.onclick = (e) => {
 
   /* ------------- déclaration des regEx pour validation du formulaire -------------- */
   let regExName = /^[a-zA-Z-\s]+$/;
-  let regExEmail = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+  let regExEmail = /^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/;
 
   /* ------------- déclaration de l'objet contact-------------- */
   let contact = {

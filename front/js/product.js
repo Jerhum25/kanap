@@ -50,7 +50,7 @@ fetch(`http://localhost:3000/api/products/${urlId}`)
                     id: product._id,
                     imageUrl: product.imageUrl,
                     altTxt: product.altTxt,
-                    price: product.price,
+                    // price: product.price,
                     description: product.description,
                     color: colors.value,
                     quantity: quantity.value
